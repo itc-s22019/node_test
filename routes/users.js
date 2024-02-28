@@ -66,19 +66,19 @@ router.post("/register", [
       }
     });
     res.status(201).json({
-      message: "created"
+      result: "created"
     });
   } catch (e) {
     switch (e.code) {
       case "P2002":
         res.status(400).json({
-          message: "NG"  //"username is already registered"
+          result: "NG"  //"username is already registered"
         });
         break;
       default:
         console.error(e);
         res.status(500).json({
-          message: "NG"   //"unknown error"
+          result: "NG"   //"unknown error"
         });
     }
   }

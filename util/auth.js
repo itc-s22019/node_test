@@ -40,12 +40,12 @@ const config = (passport) => {
             });
             if (!user) {
                 // ユーザがいない
-                return done(null, false, {message: "invalid username and/or password."});
+                return done(null, false, {result: "invalid username and/or password."});
             }
             const hashed = calcHash(password, user.salt);
             if (!crypto.timingSafeEqual(user.password, hashed)) {
                 // パスワード違う
-                return done(null, false, {message: "invalid username and/or password.."});
+                return done(null, false, {result: "invalid username and/or password.."});
             }
             // OK
             return done(null, user);

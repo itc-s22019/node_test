@@ -1,7 +1,4 @@
 import express from "express";
-import {check, validationResult} from "express-validator";
-import passport from "passport";
-import {calcHash, generateSalt} from "../util/auth.js";
 import {PrismaClient} from "@prisma/client";
 
 const router = express.Router();
@@ -27,7 +24,7 @@ router.get("/list", async (req, res, next) => {
         const maxPage = Math.ceil(totalCount / pageSize);
 
         if (page < 1 || page > maxPage) {
-            return res.status(404).json({ message: "Page not found" });
+            return res.status(404).json({ result: "Page not found" });
         }
 
         const books = await prisma.books.findMany({
@@ -90,7 +87,7 @@ router.get("/detail/:id",  async (req, res, next) => {
         });
 
         if (!book) {
-            return res.status(404).json({ message: "Book not found" });
+            return res.status(404).json({ result: "Book not found" });
         }
 
         // レスポンスデータを構築

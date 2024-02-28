@@ -1,7 +1,5 @@
 import express from "express";
 import {check, validationResult} from "express-validator";
-import passport from "passport";
-import {calcHash, generateSalt} from "../util/auth.js";
 import {PrismaClient} from "@prisma/client";
 
 const router = express.Router();
@@ -42,7 +40,7 @@ router.post(
             });
 
             if (existingRental) {
-                return res.status(409).json({ message: "Book is already rented" });
+                return res.status(409).json({ result: "Book is already rented" });
             }
 
             // Start rental
@@ -64,7 +62,7 @@ router.post(
             res.status(201).json(newRental);
         } catch (error) {
             console.error("Error starting rental:", error);
-            res.status(400).json({ message: "Failed to start rental" });
+            res.status(400).json({ result: "Failed to start rental" });
         }
     }
 );
@@ -141,7 +139,7 @@ router.get("/current", async (req, res) => {
         res.status(200).json({ rentalBooks });
     } catch (error) {
         console.error("Error fetching current rentals:", error);
-        res.status(400).json({ message: "Failed to fetch current rentals" });
+        res.status(400).json({ result: "Failed to fetch current rentals" });
     }
 });
 
@@ -172,7 +170,7 @@ router.get("/history", async (req, res) => {
         res.status(200).json({ rentalHistory: formattedHistory });
     } catch (error) {
         console.error("Error fetching rental history:", error);
-        res.status(400).json({ message: "Failed to fetch rental history" });
+        res.status(400).json({ result: "Failed to fetch rental history" });
     }
 });
 
